@@ -636,6 +636,22 @@ body{
         <div class="gp-chg">--</div>
         <div class="gp-meta">--</div>
       </div>
+      <div class="gold-price-box" id="cnyGoldBox" style="grid-column:span 2;background:linear-gradient(135deg,var(--gold),#ffd700);color:#fff">
+        <div class="gp-name" style="color:rgba(255,255,255,0.9)">人民币金价 (元/克)</div>
+        <div class="gp-price">--</div>
+        <div class="gp-chg">--</div>
+        <div class="gp-meta" style="color:rgba(255,255,255,0.7)">--</div>
+      </div>
+    </div>
+
+    <!-- 黄金盈亏看板 -->
+    <div class="card" id="goldOverview" style="display:none;background:linear-gradient(135deg,#1a1d24,#2a2e36);color:#fff;border:none">
+      <div style="text-align:center;padding:8px 0">
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:6px">🥇 黄金持仓总市值</div>
+        <div class="go-value" id="goldOvValue" style="font-size:30px;font-weight:800;font-family:Georgia,serif;color:var(--gold)">¥ 0.00</div>
+        <div class="go-pnl" id="goldOvPnl" style="font-size:15px;font-weight:700;margin-top:6px">¥ 0.00</div>
+        <div id="goldOvCost" style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px">总投入 ¥0.00</div>
+      </div>
     </div>
 
     <!-- 我的黄金持仓 -->
@@ -1205,23 +1221,60 @@ async function loadGoldData(){
     const box=document.getElementById("chinaGoldBox");
     if(box){const cls=d.direction==='up'?'up':'down';const sign=d.change>=0?'+':'';box.querySelector('.gp-price').textContent='¥ '+d.price;box.querySelector('.gp-price').className='gp-price '+cls;box.querySelector('.gp-chg').textContent=`${sign}${d.change} (${sign}${d.change_pct}%)`;box.querySelector('.gp-chg').className='gp-chg '+cls;box.querySelector('.gp-meta').textContent=escapeHtml(d.name)}
   }
+  // 人民币每克金价
+  if(g.cny_gold_per_gram){
+    const d=g.cny_gold_per_gram;
+    const box=document.getElementById("cnyGoldBox");
+    if(box){const cls=d.direction==='up'?'up':'down';const sign=d.change>=0?'+':'';box.querySelector('.gp-price').textContent='¥ '+d.price+'/克';box.querySelector('.gp-price').className='gp-price '+cls;box.querySelector('.gp-chg').textContent=`${sign}${d.change} (${sign}${d.change_pct}%)`;box.querySelector('.gp-chg').className='gp-chg '+cls;box.querySelector('.gp-meta').textContent=`汇率 ${d.usd_cny_rate} · 用于计算积存金盈亏`}
+    // 用人民币金价更新积存金/实物金持仓的当前价
+    await updateGoldPositionCurPrice(d.price);
+    // 更新黄金盈亏看板
+    await renderGoldOverview(d.price);
+  }
   const ut=document.getElementById("goldUpdateTime");if(ut)ut.textContent='更新于 '+(gd._updated_at||'');
-
-  // 更新黄金持仓的当前价（用COMEX金价）
-  const comexPrice=g.comex_gold?g.comex_gold.price:null;
-  if(comexPrice){await updateGoldPositionCurPrice(comexPrice)}
 }
 
-// 更新黄金持仓当前价
-async function updateGoldPositionCurPrice(comexPrice){
+// 更新黄金持仓当前价（人民币元/克）
+async function updateGoldPositionCurPrice(cnyPerGram){
   const positions=await dbGetAll("positions");
   let updated=false;
   for(const p of positions){
     if(p.type==='积存金'||p.type==='实物金'){
-      if(p.curPrice!==comexPrice){p.curPrice=comexPrice;await dbPut("positions",p);updated=true}
+      const newPrice=cnyPerGram;
+      if(p.curPrice!==newPrice){p.curPrice=newPrice;p.curPriceTime=Date.now();await dbPut("positions",p);updated=true}
     }
   }
   if(updated)renderGoldPositions();
+}
+
+// 黄金盈亏看板
+async function renderGoldOverview(cnyPerGram){
+  const positions=await dbGetAll("positions");
+  const goldPos=positions.filter(p=>p.type==='黄金ETF'||p.type==='积存金'||p.type==='实物金');
+  if(goldPos.length===0)return;
+  let totalCost=0,totalValue=0,todayPnl=0;
+  goldPos.forEach(p=>{
+    const cost=p.price*p.quantity;
+    const cur=p.curPrice||p.price;
+    const value=cur*p.quantity;
+    totalCost+=cost;totalValue+=value;
+    // 今日变动 = 今日金价变动 × 持仓克数
+    if((p.type==='积存金'||p.type==='实物金')&&cnyPerGram){
+      // 从gold.json的change字段算今日盈亏
+    }
+  });
+  const totalPnl=totalValue-totalCost;
+  const pnlPct=totalCost>0?(totalPnl/totalCost*100).toFixed(1):'0';
+  // 更新看板
+  const ov=document.getElementById('goldOverview');
+  if(ov){
+    ov.style.display='block';
+    document.getElementById('goldOvValue').textContent='¥ '+totalValue.toFixed(2);
+    const pnlEl=document.getElementById('goldOvPnl');
+    pnlEl.textContent=(totalPnl>=0?'+':'')+'¥ '+totalPnl.toFixed(2)+' ('+(totalPnl>=0?'+':'')+pnlPct+'%)';
+    pnlEl.className='go-pnl '+(totalPnl>=0?'up':'down');
+    document.getElementById('goldOvCost').textContent='总投入 ¥'+totalCost.toFixed(2);
+  }
 }
 
 async function loadRealData(){await Promise.all([loadHotData(),loadNewsData(),loadStockData(),loadGoldData()])}

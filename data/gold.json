@@ -3,12 +3,12 @@
   "data": {
     "comex_gold": {
       "name": "COMEX黄金期货",
-      "price": 4090.78,
-      "change": -69.82,
-      "change_pct": -1.68,
+      "price": 4093.23,
+      "change": -67.37,
+      "change_pct": -1.62,
       "high": 4170.7,
       "low": 4076.4,
-      "time": "22:21:47",
+      "time": "23:34:57",
       "direction": "down"
     },
     "china_gold_stock": {
@@ -17,7 +17,15 @@
       "change": 0.1,
       "change_pct": 1.31,
       "direction": "up"
+    },
+    "cny_gold_per_gram": {
+      "name": "人民币金价(元/克)",
+      "price": 888.99,
+      "change": -14.63,
+      "change_pct": -1.62,
+      "usd_cny_rate": 6.7552,
+      "direction": "down"
     }
   },
-  "_updated_at": "2026-07-31 22:21:47"
+  "_updated_at": "2026-07-31 23:34:59"
 }
