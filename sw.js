@@ -1,5 +1,5 @@
 // Service Worker — 工作台（network-first，确保每次更新立即生效）
-const CACHE_NAME = "workbench-v3-no-cache";
+const CACHE_NAME = "workbench-v4-7tab";
 const ASSETS = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener("install", (event) => {

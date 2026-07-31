@@ -1,7 +1,7 @@
 {
   "name": "我的工作台 · 4模块专属面板",
   "short_name": "工作台",
-  "description": "热点资讯·黄金股市投研·个人资产记账·服饰电商周报，4大模块手机端专属工作台",
+  "description": "热点资讯·股市·黄金·记账·理财·电商·学习，7大模块手机端专属工作台",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
