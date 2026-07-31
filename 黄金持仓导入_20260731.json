@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "exportDate": "2026-07-31T23:22:00",
+  "note": "黄金持仓数据导入文件 - 来自支付宝和京东金融",
+  "accounts": [
+    {
+      "name": "支付宝基金账户",
+      "type": "fund",
+      "balance": 3439.20,
+      "note": "博时黄金ETF联接C持仓",
+      "ts": 1722457320000
+    },
+    {
+      "name": "京东金融-民生积存金",
+      "type": "gold",
+      "balance": 50709.24,
+      "note": "57.6189克 @880.08元/克",
+      "ts": 1722457320000
+    },
+    {
+      "name": "京东金融-浙商积存金",
+      "type": "gold",
+      "balance": 8863.77,
+      "note": "10.0567克 @881.36元/克",
+      "ts": 1722457320000
+    }
+  ],
+  "positions": [
+    {
+      "type": "黄金ETF",
+      "code": "002611",
+      "name": "博时黄金ETF联接C",
+      "buyPrice": 0,
+      "quantity": 0,
+      "currentPrice": 0,
+      "currentValue": 3439.20,
+      "costValue": 4400.00,
+      "pnl": -960.80,
+      "pnlPct": -21.84,
+      "platform": "支付宝·蚂蚁基金",
+      "note": "累计收益-960.75元",
+      "ts": 1722457320000
+    },
+    {
+      "type": "积存金",
+      "code": "MSJC",
+      "name": "民生积存金",
+      "buyPrice": 1111.68,
+      "quantity": 57.6189,
+      "currentPrice": 880.08,
+      "currentValue": 50709.24,
+      "costValue": 64053.78,
+      "pnl": -13344.54,
+      "pnlPct": -20.83,
+      "platform": "京东金融",
+      "note": "实时880.08/成本1111.68",
+      "ts": 1722457320000
+    },
+    {
+      "type": "积存金",
+      "code": "ZSJC",
+      "name": "浙商积存金",
+      "buyPrice": 1097.81,
+      "quantity": 10.0567,
+      "currentPrice": 881.36,
+      "currentValue": 8863.77,
+      "costValue": 11040.34,
+      "pnl": -2176.57,
+      "pnlPct": -19.72,
+      "platform": "京东金融",
+      "note": "实时881.36/成本1097.81",
+      "ts": 1722457320000
+    }
+  ]
+}
