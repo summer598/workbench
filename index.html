@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="我的工作台">
@@ -81,23 +81,61 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--main-bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+html{width:100%;height:100%}
+body{
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  background:var(--main-bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* 手机竖屏全屏容器，桌面端居中显示 */
+#app{
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+@media(min-width:600px){
+  #app{
+    max-width:480px;
+    margin:0 auto;
+    box-shadow:0 0 40px rgba(0,0,0,0.1);
+    min-height:100vh;
+  }
+  body{background:#e0e0e0}
+}
 
 /* ==================== 顶部标题栏 ==================== */
 .app-header{
-  position:sticky;
+  position:fixed;
   top:0;
+  left:0;
+  right:0;
   z-index:100;
   background:var(--header-bg);
   padding-top:env(safe-area-inset-top);
   transition:background .3s;
 }
+@media(min-width:600px){
+  .app-header{max-width:480px;left:50%;transform:translateX(-50%)}
+}
 .header-inner{
-  height:52px;
+  height:48px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 14px;
+  padding:0 12px;
   color:var(--sidebar-text);
 }
 .header-left{display:flex;align-items:center;gap:8px}
@@ -123,9 +161,11 @@ html,body{height:100%;background:var(--main-bg);color:var(--txt);font-family:-ap
 
 /* ==================== 主区域 ==================== */
 .main-area{
-  padding:12px 14px 80px;
+  flex:1;
+  padding:calc(48px + env(safe-area-inset-top) + 10px) 12px calc(60px + env(safe-area-inset-bottom) + 10px);
   background:var(--main-bg-grad);
-  min-height:calc(100vh - 52px);
+  min-height:100vh;
+  min-height:100dvh;
   transition:background .3s;
 }
 
@@ -138,13 +178,17 @@ html,body{height:100%;background:var(--main-bg);color:var(--txt);font-family:-ap
   z-index:100;
   background:var(--tabbar-bg);
   backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
   border-top:1px solid var(--tabbar-border);
   padding-bottom:env(safe-area-inset-bottom);
   transition:background .3s,border-color .3s;
 }
+@media(min-width:600px){
+  .tabbar{max-width:480px;left:50%;transform:translateX(-50%)}
+}
 .tabbar-inner{
   display:flex;
-  height:56px;
+  height:54px;
 }
 .tab-item{
   flex:1;
@@ -383,6 +427,8 @@ html,body{height:100%;background:var(--main-bg);color:var(--txt);font-family:-ap
 </style>
 </head>
 <body>
+
+<div id="app">
 
 <!-- ==================== 顶部标题栏 ==================== -->
 <header class="app-header">
@@ -661,6 +707,8 @@ html,body{height:100%;background:var(--main-bg);color:var(--txt);font-family:-ap
     </div>
   </div>
 </nav>
+
+</div><!-- /#app -->
 
 <!-- 安装横幅 -->
 <div class="install-banner" id="installBanner">
