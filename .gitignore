@@ -1,0 +1,7 @@
+data-server/
+api/
+node_modules/
+*.log
+__pycache__/
+.vercel/
+.codebuddy/

@@ -1,0 +1,19 @@
+{
+  "name": "我的工作台 · 4模块专属面板",
+  "short_name": "工作台",
+  "description": "热点资讯·黄金股市投研·个人资产记账·服饰电商周报，4大模块手机端专属工作台",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1115",
+  "theme_color": "#0f1115",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzBmMTExNSIvPjx0ZXh0IHg9IjI1NiIgeT0iMzAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNDAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZjVjODQyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5GKPC90ZXh0Pjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

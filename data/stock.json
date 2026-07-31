@@ -1,0 +1,39 @@
+{
+  "status": "ok",
+  "data": [
+    {
+      "name": "上证指数",
+      "code": "sh000001",
+      "price": 3832.26,
+      "change": 27.57,
+      "change_pct": 0.72,
+      "volume": 597529427.0,
+      "amount": 1187681546393.0,
+      "direction": "up",
+      "time": "15:30:36"
+    },
+    {
+      "name": "深证成指",
+      "code": "sz399001",
+      "price": 13578.93,
+      "change": 293.13,
+      "change_pct": 2.21,
+      "volume": 71939594436.0,
+      "amount": 1354266631403.147,
+      "direction": "up",
+      "time": "15:00:03"
+    },
+    {
+      "name": "创业板指",
+      "code": "sz399006",
+      "price": 3343.96,
+      "change": 99.35,
+      "change_pct": 3.06,
+      "volume": 23617094508.0,
+      "amount": 671226880331.15,
+      "direction": "up",
+      "time": "15:00:03"
+    }
+  ],
+  "_updated_at": "2026-07-31 22:21:47"
+}

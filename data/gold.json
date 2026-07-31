@@ -1,0 +1,23 @@
+{
+  "status": "ok",
+  "data": {
+    "comex_gold": {
+      "name": "COMEX黄金期货",
+      "price": 4090.78,
+      "change": -69.82,
+      "change_pct": -1.68,
+      "high": 4170.7,
+      "low": 4076.4,
+      "time": "22:21:47",
+      "direction": "down"
+    },
+    "china_gold_stock": {
+      "name": "中国黄金(600916)",
+      "price": 7.71,
+      "change": 0.1,
+      "change_pct": 1.31,
+      "direction": "up"
+    }
+  },
+  "_updated_at": "2026-07-31 22:21:47"
+}
